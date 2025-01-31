@@ -38,8 +38,8 @@ impl LocalKey {
     /// Create a new deterministic key or keypair
     pub fn from_seed(alg: KeyAlg, seed: &[u8], method: Option<&str>) -> Result<Self, Error> {
         let inner = match method {
-          Some("bls_keygen") => Box::<AnyKey>::generate_with_rng(alg, BlsKeyGen::new(seed)?)?,
-          None | Some("") => Box::<AnyKey>::generate_with_rng(alg, RandomDet::new(seed))?,
+          Some("bls_keygen") => Box::<AnyKey>::generate(alg, BlsKeyGen::new(seed)?)?,
+          None | Some("") => Box::<AnyKey>::generate(alg, RandomDet::new(seed))?,
             _ => {
                 return Err(err_msg!(
                     Unsupported,
